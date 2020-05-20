@@ -11,13 +11,17 @@
 //This uses the rapidjson library extensively
 
 #include "unordered_map"
+#include "WordIndex.h"
 #include <set>
 class DocumentParser{
     private:
 
         //The Document Currently Being Parsed
         std::string currentDoc;
+        std::string docTitle;
         std::set<std::string> stopWords;
+
+        WordIndex* wordIndex;
         void parseBodyText(rapidjson::Value&);
 
         void parseBodyBlock(rapidjson::Value&,std::unordered_map<std::string,int> &);
@@ -33,7 +37,7 @@ class DocumentParser{
         std::string getCurrentDoc();
 
         void setCurrentDoc(std::string);
-
+        void setIndex(WordIndex*);
         void parseDoc();
 
 

@@ -11,11 +11,13 @@
 #include "porter2_stemmerWrapper.h"
 DocumentParser::DocumentParser(){
     currentDoc="";
+    wordIndex=nullptr;
     loadStopWords();
 }
 
 DocumentParser::DocumentParser(std::string newDoc){
     currentDoc = newDoc;
+    wordIndex=nullptr;
     loadStopWords();
 }
 
@@ -59,8 +61,10 @@ void DocumentParser::parseBodyText(rapidjson::Value & doc) {
     //Total Map of words and how much they appear
     std::unordered_map<std::string,int> totalMap;
 
+    std::unordered_map<std::string,float> relevancyMap;
     //Parsing abstract and title
     if(doc.HasMember("metadata") && doc["metadata"].HasMember("title")) {
+        docTitle = doc["metadata"]["title"].GetString();
         parseBodyBlock(doc["metadata"]["title"], totalMap);
     }
 
@@ -75,8 +79,8 @@ void DocumentParser::parseBodyText(rapidjson::Value & doc) {
 
     }
 
-    for(auto iter = totalMap.begin(); iter !=totalMap.end(); iter++){
-        std::cout << iter->first << " " << iter->second<< std::endl;
+    for(auto iter = totalMap.begin();iter!=totalMap.end();iter++){
+        wordIndex->addDoc(iter->first,docTitle,currentDoc,iter->second);
     }
 
 
@@ -141,6 +145,10 @@ void DocumentParser::loadStopWords() {
         getline(stopWordsFile,line);
         stopWords.insert(line);
     }
+}
+
+void DocumentParser::setIndex(WordIndex * index) {
+    wordIndex = index;
 }
 
 
