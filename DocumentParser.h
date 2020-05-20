@@ -10,6 +10,7 @@
 
 //This uses the rapidjson library extensively
 
+#include "unordered_map"
 class DocumentParser{
     private:
 
@@ -18,9 +19,8 @@ class DocumentParser{
 
         void parseBodyText(rapidjson::Value&);
 
-        void parseBodyBlock(rapidjson::Value&);
+        void parseBodyBlock(rapidjson::Value&,std::unordered_map<std::string,int> &);
 
-        bool isPunctuation(char);
     public:
         //Constructors
         DocumentParser();

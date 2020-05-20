@@ -54,18 +54,28 @@ void DocumentParser::parseDoc(){
 
 
 void DocumentParser::parseBodyText(rapidjson::Value & bodyText) {
+    //Total Map of words and how much they appear
+    std::unordered_map<std::string,int> totalMap;
+
+
     for(rapidjson::SizeType i = 0; i < bodyText.Size(); i++){
-        parseBodyBlock(bodyText[i]["text"]);
+
+        parseBodyBlock(bodyText[i]["text"],totalMap);
+
     }
+
+    for(auto iter = totalMap.begin(); iter !=totalMap.end(); iter++){
+        std::cout << iter->first << " " << iter->second<< std::endl;
+    }
+
+
 }
 
-void DocumentParser::parseBodyBlock(rapidjson::Value& text){
+void DocumentParser::parseBodyBlock(rapidjson::Value& text, std::unordered_map<std::string,int>& wordMap){
 
     //Converting Block into a string
     std::string block = text.GetString();
 
-    //Creating a Map of words to the amount of times it appears
-    std::unordered_map<std::string,int> wordMap;
 
     //The Current Word
     std::string currWord= "";
@@ -83,19 +93,25 @@ void DocumentParser::parseBodyBlock(rapidjson::Value& text){
                 }
 
                 //Removing punctuation from back
-                while(ispunct(currWord[currWord.size()-1])!=0){
+                while(ispunct(currWord.size()>1 && currWord[currWord.size()-1])!=0){
                     currWord.pop_back();
                 }
-                currWord = porter2_stemmerWrapper::stem(currWord);
-                
-                if(wordMap.find(currWord)!=wordMap.end()){
-                    //Increment appearence count and reset word
-                    wordMap[currWord]++;
-                    currWord="";
-                }else{
-                    //Add Word to map and reset word
-                    wordMap.insert(std::pair<std::string,int>(currWord,1));
-                    currWord="";
+
+                //Making sure word is still a word
+                if(currWord.size()!=0) {
+
+                    //Stemming word
+                    currWord = porter2_stemmerWrapper::stem(currWord);
+
+                    if (wordMap.find(currWord) != wordMap.end()) {
+                        //Increment appearence count and reset word
+                        wordMap[currWord]++;
+                        currWord = "";
+                    } else {
+                        //Add Word to map and reset word
+                        wordMap.insert(std::pair<std::string, int>(currWord, 1));
+                        currWord = "";
+                    }
                 }
             }
         }else{
@@ -103,11 +119,6 @@ void DocumentParser::parseBodyBlock(rapidjson::Value& text){
             currWord+=letter;
         }
     }
-
-    for(auto iter = wordMap.begin(); iter!=wordMap.end();iter++){
-        std::cout << iter->first << " " << iter->second << std::endl;
-    }
-
 }
 
 
