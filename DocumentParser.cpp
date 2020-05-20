@@ -8,7 +8,7 @@
 #include "lib/rapidjson/istreamwrapper.h"
 #include "unordered_map"
 #include "utility"
-
+#include "porter2_stemmerWrapper.h"
 DocumentParser::DocumentParser(){
     currentDoc="";
 }
@@ -86,7 +86,8 @@ void DocumentParser::parseBodyBlock(rapidjson::Value& text){
                 while(ispunct(currWord[currWord.size()-1])!=0){
                     currWord.pop_back();
                 }
-
+                currWord = porter2_stemmerWrapper::stem(currWord);
+                
                 if(wordMap.find(currWord)!=wordMap.end()){
                     //Increment appearence count and reset word
                     wordMap[currWord]++;
