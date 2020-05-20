@@ -12,22 +12,28 @@
 
 class DocumentParser{
     private:
+
+        //The Document Currently Being Parsed
         std::string currentDoc;
 
+        void parseBodyText(rapidjson::Value&);
 
+        void parseBodyBlock(rapidjson::Value&);
+
+        bool isPunctuation(char);
     public:
-        
+        //Constructors
         DocumentParser();
         DocumentParser(std::string);
+        DocumentParser(DocumentParser&);
 
         ~DocumentParser();
-
-        DocumentParser(DocumentParser&);
 
         std::string getCurrentDoc();
 
         void setCurrentDoc(std::string);
 
-        void outputDoc();
+        void parseDoc();
+
 
 };
