@@ -47,20 +47,22 @@ void DocumentParser::parseDoc(){
         std::cout << "Parse Error" << std::endl;
     }
 
-    rapidjson::Value& bodyText = doc["body_text"];
 
-    parseBodyText(bodyText);
+
+    parseBodyText(doc);
 }
 
 
-void DocumentParser::parseBodyText(rapidjson::Value & bodyText) {
+void DocumentParser::parseBodyText(rapidjson::Value & doc) {
     //Total Map of words and how much they appear
     std::unordered_map<std::string,int> totalMap;
 
+    parseBodyBlock(doc["metadata"]["title"],totalMap);
+    parseBodyBlock(doc["abstract"][0]["text"],totalMap);
 
-    for(rapidjson::SizeType i = 0; i < bodyText.Size(); i++){
+    for(rapidjson::SizeType i = 0; i < doc["body_text"].Size(); i++){
 
-        parseBodyBlock(bodyText[i]["text"],totalMap);
+        parseBodyBlock(doc["body_text"][i]["text"],totalMap);
 
     }
 
