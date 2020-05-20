@@ -1,15 +1,11 @@
 #include "DocumentParser.h"
 
 #include <iostream>
-#include <fstream>
-#include <sys/stat.h>
-#include <cerrno>
-#include <cstring>
-#include <stdexcept>
+#include "fstream"
 #include <string>
-#include "filereadstream.h"
-#include "document.h"
-#include "istreamwrapper.h"
+#include "lib/rapidjson/filereadstream.h"
+#include "lib/rapidjson/document.h"
+#include "lib/rapidjson/istreamwrapper.h"
 
 DocumentParser::DocumentParser(){
     currentDoc="";
