@@ -11,16 +11,17 @@
 //This uses the rapidjson library extensively
 
 #include "unordered_map"
+#include <set>
 class DocumentParser{
     private:
 
         //The Document Currently Being Parsed
         std::string currentDoc;
-
+        std::set<std::string> stopWords;
         void parseBodyText(rapidjson::Value&);
 
         void parseBodyBlock(rapidjson::Value&,std::unordered_map<std::string,int> &);
-
+        void loadStopWords();
     public:
         //Constructors
         DocumentParser();
