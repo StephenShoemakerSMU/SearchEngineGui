@@ -4,9 +4,10 @@
 
 #include "Document.h"
 
-Document::Document(std::string title, std::string path) {
+Document::Document(std::string title, std::string path, int length) {
     this->title = title;
     this->path = path;
+    this->length = length;
 }
 
 Document::Document() {
@@ -17,6 +18,7 @@ Document::Document() {
 Document::Document(const Document & cpy) {
     this->title = cpy.title;
     this->path = cpy.path;
+    this->length = cpy.length;
 }
 
 Document::~Document() {
@@ -26,6 +28,7 @@ Document::~Document() {
 Document &Document::operator=(const Document &cpy) {
     this->path = cpy.path;
     this->title=cpy.path;
+    this->length = cpy.length;
     return *this;
 }
 
@@ -51,6 +54,14 @@ bool Document::operator<(const Document& rhs) const {
 
 void Document::addWordMap(std::unordered_map<std::string,int> & newMap) {
     this->wordMap = newMap;
+}
+
+int Document::getLength() {
+    return length;
+}
+
+int Document::getWordFrequency(std::string word) {
+    return wordMap.find(word)->second;
 }
 
 

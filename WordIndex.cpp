@@ -54,6 +54,10 @@ void WordIndex::addEntry(std::string word, Document *doc) {
 
 }
 
+WordIndex::Word &WordIndex::getWord(std::string word) {
+    return *(wordMap.find(word)->second);
+}
+
 
 WordIndex::Word::Word() {
 
@@ -62,7 +66,7 @@ WordIndex::Word::Word() {
 //Copys every doc and frequency into the word
 WordIndex::Word::Word(WordIndex::Word & cpy) {
     this->docMap.clear();
-
+    this->text = cpy.text;
     for(auto iter = cpy.docMap.begin(); iter != cpy.docMap.end();iter++){
 
         this->docMap.insert(std::pair<std::string,Document*>(iter->first,iter->second));

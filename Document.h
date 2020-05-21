@@ -15,10 +15,11 @@ class Document {
     private:
         std::string title;
         std::string path;
+        int length;
 
         std::unordered_map<std::string, int> wordMap;
     public:
-        Document(std::string, std::string);
+        Document(std::string, std::string,int);
         Document();
         Document(const Document&);
         ~Document();
@@ -27,6 +28,9 @@ class Document {
 
         std::string getTitle();
         std::string getPath();
+        int getLength();
+
+        int getWordFrequency(std::string);
 
         void setTitle(std::string);
         void setPath(std::string);

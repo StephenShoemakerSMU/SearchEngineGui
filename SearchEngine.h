@@ -6,6 +6,7 @@
 #define SEARCHENGINE_SEARCHENGINE_H
 
 #include "DocumentParser.h"
+#include "porter2_stemmerWrapper.h"
 #include <stdio.h>
 #include <dirent.h>
 
@@ -22,6 +23,8 @@ class SearchEngine {
         SearchEngine();
         ~SearchEngine();
         SearchEngine(SearchEngine&);
+
+        void search(std::string);
 
         void parseDirectory(std::string);
         void parseDocument(std::string);

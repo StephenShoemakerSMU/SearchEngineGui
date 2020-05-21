@@ -20,6 +20,8 @@ class DocumentParser{
         //The Document Currently Being Parsed
         std::string currentDoc;
         std::string docTitle;
+        int currentDocLength;
+
         std::set<std::string> stopWords;
 
         WordIndex* wordIndex;

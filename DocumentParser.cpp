@@ -11,12 +11,14 @@
 #include "porter2_stemmerWrapper.h"
 DocumentParser::DocumentParser(){
     currentDoc="";
+    currentDocLength = 0;
     wordIndex=nullptr;
     loadStopWords();
 }
 
 DocumentParser::DocumentParser(std::string newDoc){
     currentDoc = newDoc;
+    currentDocLength = 0;
     wordIndex=nullptr;
     loadStopWords();
 }
@@ -27,6 +29,9 @@ DocumentParser::~DocumentParser(){
 
 DocumentParser::DocumentParser(DocumentParser & cpy) {
     this->currentDoc = cpy.currentDoc;
+    this->currentDocLength = cpy.currentDocLength;
+    wordIndex = cpy.wordIndex;
+    loadStopWords();
 }
 
 
@@ -36,6 +41,7 @@ std::string DocumentParser::getCurrentDoc(){
 
 void DocumentParser::setCurrentDoc(std::string newDoc){
     currentDoc = newDoc;
+    currentDocLength=0;
 }
 
 void DocumentParser::parseDoc(){
@@ -81,7 +87,7 @@ void DocumentParser::parseBodyText(rapidjson::Value & doc) {
 
     }
 
-    Document* currDoc = new Document(docTitle,currentDoc);
+    Document* currDoc = new Document(docTitle,currentDoc,currentDocLength);
     currDoc->addWordMap(totalMap);
     docIdex->addDoc(currDoc);
 
@@ -140,6 +146,7 @@ void DocumentParser::parseBodyBlock(rapidjson::Value& text, std::unordered_map<s
             }
         }else{
             //add next letter
+            currentDocLength++;
             currWord+=letter;
         }
     }

@@ -45,3 +45,21 @@ void SearchEngine::parseDirectory(std::string directory) {
         }
 
 }
+
+void SearchEngine::search(std::string search) {
+    std::set<std::pair<float,Document*>> docSet;
+
+    std::string original = search;
+
+    search = porter2_stemmerWrapper::stem(search);
+    auto word = wordIndex->getWord(search);
+    for(auto iter = word.docMap.begin(); iter !=word.docMap.end();iter++){
+        docSet.insert(std::pair<float,Document*>(-1*((float)iter->second->getWordFrequency(search))/ iter->second->getLength(),iter->second));
+    }
+
+    std::cout<<"Search Results for: " << original << std::endl;
+
+    for(auto iter = docSet.begin(); iter != docSet.end(); iter++){
+        std::cout << iter->second->getTitle() << " " << -1*iter->first << std::endl;
+    }
+}

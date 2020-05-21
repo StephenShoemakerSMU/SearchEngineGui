@@ -41,6 +41,8 @@ class WordIndex {
 
         //Add a Doc to a word and its respective frequency
         void addEntry(std::string word, Document* doc);
+
+        Word& getWord(std::string);
 };
 
 

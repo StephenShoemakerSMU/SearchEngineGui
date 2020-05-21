@@ -7,5 +7,5 @@ int main(int argc, char *argv[])
 
     SearchEngine searchEngine;
     searchEngine.parseDirectory("../Corpus");
-    1+1;
+    searchEngine.search("Biology");
 }
