@@ -5,9 +5,22 @@
 #ifndef SEARCHENGINE_DOCUMENTINDEX_H
 #define SEARCHENGINE_DOCUMENTINDEX_H
 
+#include <unordered_map>
+#include "Document.h"
 
 class DocumentIndex {
+    private:
+        std::unordered_map<std::string, Document*> docMap;
+    public:
+        DocumentIndex();
+        DocumentIndex(DocumentIndex&);
+        ~DocumentIndex();
 
+        DocumentIndex& operator=(DocumentIndex&);
+
+        void addDoc(Document*);
+
+        Document* getDoc(std::string);
 };
 
 

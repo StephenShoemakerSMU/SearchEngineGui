@@ -12,6 +12,7 @@
 
 #include "unordered_map"
 #include "WordIndex.h"
+#include "DocumentIndex.h"
 #include <set>
 class DocumentParser{
     private:
@@ -22,6 +23,8 @@ class DocumentParser{
         std::set<std::string> stopWords;
 
         WordIndex* wordIndex;
+        DocumentIndex* docIdex;
+
         void parseBodyText(rapidjson::Value&);
 
         void parseBodyBlock(rapidjson::Value&,std::unordered_map<std::string,int> &);
@@ -37,7 +40,9 @@ class DocumentParser{
         std::string getCurrentDoc();
 
         void setCurrentDoc(std::string);
+
         void setIndex(WordIndex*);
+        void setDocIndex(DocumentIndex*);
         void parseDoc();
 
 

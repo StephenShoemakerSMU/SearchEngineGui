@@ -21,7 +21,7 @@ class WordIndex {
 
         struct Word{
             std::string text;
-            std::map<Document,float> frequency;
+            std::map<std::string,Document*> docMap;
 
             Word();
             Word(std::string);
@@ -40,7 +40,7 @@ class WordIndex {
         WordIndex& operator=(const WordIndex&);
 
         //Add a Doc to a word and its respective frequency
-        void addEntry(std::string word, std::string doc, std::string path, float frequency);
+        void addEntry(std::string word, Document* doc);
 };
 
 

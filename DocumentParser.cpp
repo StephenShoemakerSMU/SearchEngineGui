@@ -61,7 +61,6 @@ void DocumentParser::parseBodyText(rapidjson::Value & doc) {
     //Total Map of words and how much they appear
     std::unordered_map<std::string,int> totalMap;
 
-    std::unordered_map<std::string,float> relevancyMap;
     //Parsing abstract and title
     if(doc.HasMember("metadata") && doc["metadata"].HasMember("title")) {
         docTitle = doc["metadata"]["title"].GetString();
@@ -79,9 +78,14 @@ void DocumentParser::parseBodyText(rapidjson::Value & doc) {
 
     }
 
-    for(auto iter = totalMap.begin();iter!=totalMap.end();iter++){
-        wordIndex->addEntry(iter->first, docTitle, currentDoc, iter->second);
+    Document* currDoc = new Document(docTitle,currentDoc);
+    currDoc->addWordMap(totalMap);
+    docIdex->addDoc(currDoc);
+
+    for(auto iter = totalMap.begin(); iter !=totalMap.end();iter++){
+        wordIndex->addEntry(iter->first,currDoc);
     }
+
 
 
 }
@@ -149,6 +153,10 @@ void DocumentParser::loadStopWords() {
 
 void DocumentParser::setIndex(WordIndex * index) {
     wordIndex = index;
+}
+
+void DocumentParser::setDocIndex(DocumentIndex * newIndex) {
+    this->docIdex = newIndex;
 }
 
 

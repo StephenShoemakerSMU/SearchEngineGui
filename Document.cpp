@@ -49,5 +49,9 @@ bool Document::operator<(const Document& rhs) const {
     return path.compare(rhs.path)<0;
 }
 
+void Document::addWordMap(std::unordered_map<std::string,int> & newMap) {
+    this->wordMap = newMap;
+}
+
 
 

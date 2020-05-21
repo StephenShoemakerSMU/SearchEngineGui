@@ -7,12 +7,16 @@
 
 
 #include <string>
+#include <unordered_map>
+
 //Document Class
 //Stores All Relevant Info for a document
 class Document {
     private:
         std::string title;
         std::string path;
+
+        std::unordered_map<std::string, int> wordMap;
     public:
         Document(std::string, std::string);
         Document();
@@ -26,6 +30,8 @@ class Document {
 
         void setTitle(std::string);
         void setPath(std::string);
+
+        void addWordMap(std::unordered_map<std::string,int>&);
 
         bool operator<(const Document&) const ;
 };

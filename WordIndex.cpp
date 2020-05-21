@@ -43,20 +43,17 @@ WordIndex& WordIndex::operator=(const WordIndex &cpy) {
     return *this;
 }
 
-//If the word is in the map, add the Document to the map
-//If the word is not in the map, add the Word, then the Document
-void WordIndex::addEntry(std::string word, std::string doc, std::string path, float frequency) {
+void WordIndex::addEntry(std::string word, Document *doc) {
     auto wordIter = wordMap.find(word);
-    Document currDoc;
-    currDoc.setPath(path);
-    currDoc.setTitle(doc);
-    if(wordIter!=wordMap.end()){
-        wordIter->second->frequency.insert(std::pair<Document,float>(currDoc,frequency));
+    if(wordIter!=wordMap.end()) {
+        wordIter->second->docMap.insert(std::pair<std::string,Document*>(doc->getPath(),doc));
     }else{
         wordMap.insert(std::pair<std::string,Word*>(word,new Word(word)));
-        wordMap.find(word)->second->frequency.insert(std::pair<Document,float>(currDoc,frequency));
+        wordMap.find(word)->second->docMap.insert(std::pair<std::string,Document*>(doc->getPath(),doc));
     }
+
 }
+
 
 WordIndex::Word::Word() {
 
@@ -64,11 +61,11 @@ WordIndex::Word::Word() {
 
 //Copys every doc and frequency into the word
 WordIndex::Word::Word(WordIndex::Word & cpy) {
-    this->frequency.clear();
+    this->docMap.clear();
 
-    for(auto iter = cpy.frequency.begin(); iter != cpy.frequency.end();iter++){
-        Document newDoc = iter->first;
-        this->frequency.insert(std::pair<Document,float>(newDoc,iter->second));
+    for(auto iter = cpy.docMap.begin(); iter != cpy.docMap.end();iter++){
+
+        this->docMap.insert(std::pair<std::string,Document*>(iter->first,iter->second));
     }
 
 }
@@ -76,13 +73,14 @@ WordIndex::Word::Word(WordIndex::Word & cpy) {
 WordIndex::Word::~Word() {
 
 }
-//Copies the word and copies the requency
-WordIndex::Word& WordIndex::Word::operator=(const WordIndex::Word & cpy) {
-    this->frequency.clear();
 
-    for(auto iter = cpy.frequency.begin(); iter != cpy.frequency.end();iter++){
-        Document newDoc = iter->first;
-        this->frequency.insert(std::pair<Document,float>(newDoc,iter->second));
+//Copies the word and copies the frequency
+WordIndex::Word& WordIndex::Word::operator=(const WordIndex::Word & cpy) {
+    this->docMap.clear();
+
+    for(auto iter = cpy.docMap.begin(); iter != cpy.docMap.end();iter++){
+
+        this->docMap.insert(std::pair<std::string,Document*>(iter->first,iter->second));
     }
 
     return *this;
