@@ -70,37 +70,39 @@ int Document::getWordFrequency(std::string word) {
 
 std::string Document::getJson() {
     std::string output;
-    output+="{\n";
 
-    output+="\"path\": \"" + this->getPath()+"\",\n";
-    output+="\"title\": \"" + this->getTitle()+"\",\n";
-    output+="\"words\": [\n";
+    output+=this->getPath()+ "\n";
+    output+=this->getTitle() + "\n";
+
 
     auto iter = wordMap.begin();
     if(iter!=wordMap.end()){
-        output+="{\n";
 
-        output+="\"word\": \"" + iter->first + "\",\n";
-        output+="\"frequency\": \"" + std::to_string(iter->second) + "\"\n";
 
-        output+="}";
-        iter++;
+        output+=iter->first + " " + std::to_string(iter->second);
+
+
     }
+    iter++;
 
 
     for(; iter!=wordMap.end();iter++){
-        output+=",\n{\n";
+        output+="\n";
 
-        output+="\"word\": \"" + iter->first + "\",\n";
-        output+="\"frequency\": \"" + std::to_string(iter->second) + "\"\n";
+        output+=iter->first + " " + std::to_string(iter->second);
 
-        output+="}";
     }
 
 
-    output+="]\n}\n";
-
     return output;
+}
+
+void Document::loadDoc(std::string) {
+
+}
+
+void Document::addWord(std::string word,int frequency) {
+    wordMap.insert(std::pair<std::string,int>(word,frequency));
 }
 
 

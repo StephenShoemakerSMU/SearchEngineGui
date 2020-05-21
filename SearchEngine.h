@@ -30,6 +30,8 @@ class SearchEngine {
         void parseDocument(std::string);
 
         void saveDocumentIndex(std::string);
+
+        void loadPersistentDoc(std::string);
 };
 
 

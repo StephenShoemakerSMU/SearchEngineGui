@@ -37,6 +37,10 @@ class Document {
 
         std::string getJson();
 
+        void loadDoc(std::string);
+
+        void addWord(std::string,int);
+
         void addWordMap(std::unordered_map<std::string,int>&);
 
         bool operator<(const Document&) const ;

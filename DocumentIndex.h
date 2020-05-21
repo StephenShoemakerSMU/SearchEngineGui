@@ -23,6 +23,9 @@ class DocumentIndex {
         Document* getDoc(std::string);
 
         void saveIndex(std::string);
+
+
+        void loadDocument(std::string);
 };
 
 
