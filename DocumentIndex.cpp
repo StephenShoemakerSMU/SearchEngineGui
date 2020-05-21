@@ -70,6 +70,6 @@ void DocumentIndex::loadDocument(std::string path) {
 
         docMap.insert(std::pair<std::string,Document*>(newDoc->getPath(),newDoc));
 
-        std::cout << newDoc->getJson() << std::endl;
+
     }
 }

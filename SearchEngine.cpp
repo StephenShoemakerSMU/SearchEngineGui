@@ -68,4 +68,8 @@ void SearchEngine::loadPersistentDoc(std::string path) {
     docIndex->loadDocument(path);
 }
 
+void SearchEngine::saveWordIndex(std::string path) {
+    wordIndex->saveIndex(path);
+}
+
 

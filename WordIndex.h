@@ -29,6 +29,8 @@ class WordIndex {
             ~Word();
 
             Word& operator=(const Word&);
+
+            std::string getPersistentIndex();
         };
 
         std::unordered_map<std::string, Word*> wordMap;
@@ -43,6 +45,10 @@ class WordIndex {
         void addEntry(std::string word, Document* doc);
 
         Word& getWord(std::string);
+
+        void saveIndex(std::string);
+
+        void loadWord(std::string);
 };
 
 

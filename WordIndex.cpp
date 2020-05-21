@@ -3,7 +3,7 @@
 //
 
 #include "WordIndex.h"
-
+#include "fstream"
 WordIndex::WordIndex() {
 
 }
@@ -58,6 +58,20 @@ WordIndex::Word &WordIndex::getWord(std::string word) {
     return *(wordMap.find(word)->second);
 }
 
+void WordIndex::saveIndex(std::string path) {
+    for(auto index = wordMap.begin();index!=wordMap.end();index++){
+        std::string output = path + "/" + index->second->text+ ".txt";
+        std::ofstream file(output);
+        file << index->second->getPersistentIndex();
+        file.close();
+    }
+}
+
+void WordIndex::loadWord(std::string path) {
+    std::ifstream wordFile(path);
+
+}
+
 
 WordIndex::Word::Word() {
 
@@ -92,4 +106,12 @@ WordIndex::Word& WordIndex::Word::operator=(const WordIndex::Word & cpy) {
 
 WordIndex::Word::Word(std::string text) {
     this->text = text;
+}
+
+std::string WordIndex::Word::getPersistentIndex(){
+    std::string output = "";
+    for(auto iter = docMap.begin(); iter!=docMap.end();iter++){
+        output+=iter->second->getTitle() + ".txt" + "\n";
+    }
+    return output;
 }
