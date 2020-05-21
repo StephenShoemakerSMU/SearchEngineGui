@@ -6,6 +6,8 @@
 #define SEARCHENGINE_SEARCHENGINE_H
 
 #include "DocumentParser.h"
+#include <stdio.h>
+#include <dirent.h>
 
 //Class Dedicated to managing all of the componenets of the search engine
 //Has a document parser that reads a document and extracts the document info
@@ -21,6 +23,7 @@ class SearchEngine {
         ~SearchEngine();
         SearchEngine(SearchEngine&);
 
+        void parseDirectory(std::string);
         void parseDocument(std::string);
 };
 

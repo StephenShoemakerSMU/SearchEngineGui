@@ -2,6 +2,7 @@
 // Created by stephenshoemaker on 5/21/20.
 //
 
+#include <iostream>
 #include "SearchEngine.h"
 
 void SearchEngine::parseDocument(std::string path) {
@@ -29,4 +30,18 @@ SearchEngine::SearchEngine(SearchEngine & cpy) {
     wordIndex = new WordIndex(*cpy.wordIndex);
     parser->setDocIndex(docIndex);
     parser->setIndex(wordIndex);
+}
+
+void SearchEngine::parseDirectory(std::string directory) {
+    struct dirent *entry = nullptr;
+    DIR *dp = nullptr;
+
+    dp = opendir(directory.c_str());
+    if(dp!= nullptr)
+        while((entry = readdir(dp))){
+            if(strcmp(entry->d_name,".")!=0 && strcmp(entry->d_name,"..")!=0) {
+                parseDocument(directory + "/" + std::string(entry->d_name));
+            }
+        }
+
 }

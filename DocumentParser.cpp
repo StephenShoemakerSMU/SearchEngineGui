@@ -48,12 +48,15 @@ void DocumentParser::parseDoc(){
     doc.ParseStream(inputWrapper);
 
     if(doc.HasParseError()){
+        std::cout << currentDoc << std::endl;
         std::cout << "Parse Error" << std::endl;
+    }else{
+        parseBodyText(doc);
     }
 
 
 
-    parseBodyText(doc);
+
 }
 
 
