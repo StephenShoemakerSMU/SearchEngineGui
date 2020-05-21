@@ -8,7 +8,7 @@
 
 #include <string>
 #include <unordered_map>
-
+#include "lib/rapidjson/document.h"
 //Document Class
 //Stores All Relevant Info for a document
 class Document {
@@ -34,6 +34,8 @@ class Document {
 
         void setTitle(std::string);
         void setPath(std::string);
+
+        std::string getJson();
 
         void addWordMap(std::unordered_map<std::string,int>&);
 

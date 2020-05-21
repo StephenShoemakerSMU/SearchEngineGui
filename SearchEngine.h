@@ -28,6 +28,8 @@ class SearchEngine {
 
         void parseDirectory(std::string);
         void parseDocument(std::string);
+
+        void saveDocumentIndex(std::string);
 };
 
 

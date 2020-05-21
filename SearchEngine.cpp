@@ -57,9 +57,11 @@ void SearchEngine::search(std::string search) {
         docSet.insert(std::pair<float,Document*>(-1*((float)iter->second->getWordFrequency(search))/ iter->second->getLength(),iter->second));
     }
 
-    std::cout<<"Search Results for: " << original << std::endl;
 
-    for(auto iter = docSet.begin(); iter != docSet.end(); iter++){
-        std::cout << iter->second->getTitle() << " " << -1*iter->first << std::endl;
-    }
 }
+
+void SearchEngine::saveDocumentIndex(std::string path) {
+    docIndex->saveIndex(path);
+}
+
+

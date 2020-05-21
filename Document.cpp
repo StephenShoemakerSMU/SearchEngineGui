@@ -2,7 +2,11 @@
 // Created by stephenshoemaker on 5/20/20.
 //
 
+#include <iostream>
 #include "Document.h"
+#include "lib/rapidjson/document.h"
+#include "lib/rapidjson/writer.h"
+#include "lib/rapidjson/stringbuffer.h"
 
 Document::Document(std::string title, std::string path, int length) {
     this->title = title;
@@ -62,6 +66,41 @@ int Document::getLength() {
 
 int Document::getWordFrequency(std::string word) {
     return wordMap.find(word)->second;
+}
+
+std::string Document::getJson() {
+    std::string output;
+    output+="{\n";
+
+    output+="\"path\": \"" + this->getPath()+"\",\n";
+    output+="\"title\": \"" + this->getTitle()+"\",\n";
+    output+="\"words\": [\n";
+
+    auto iter = wordMap.begin();
+    if(iter!=wordMap.end()){
+        output+="{\n";
+
+        output+="\"word\": \"" + iter->first + "\",\n";
+        output+="\"frequency\": \"" + std::to_string(iter->second) + "\"\n";
+
+        output+="}";
+        iter++;
+    }
+
+
+    for(; iter!=wordMap.end();iter++){
+        output+=",\n{\n";
+
+        output+="\"word\": \"" + iter->first + "\",\n";
+        output+="\"frequency\": \"" + std::to_string(iter->second) + "\"\n";
+
+        output+="}";
+    }
+
+
+    output+="]\n}\n";
+
+    return output;
 }
 
 

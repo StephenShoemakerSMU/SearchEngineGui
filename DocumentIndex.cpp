@@ -3,7 +3,7 @@
 //
 
 #include "DocumentIndex.h"
-
+#include "fstream"
 DocumentIndex::DocumentIndex() {
 
 }
@@ -35,4 +35,13 @@ void DocumentIndex::addDoc(Document * doc) {
 
 Document* DocumentIndex::getDoc(std::string path) {
     return docMap.find(path)->second;
+}
+
+void DocumentIndex::saveIndex(std::string path) {
+    for(auto index = docMap.begin();index!=docMap.end();index++){
+        std::string output = path + "/" + index->second->getTitle()+ ".json";
+        std::ofstream file(output);
+        file << index->second->getJson();
+        file.close();
+    }
 }

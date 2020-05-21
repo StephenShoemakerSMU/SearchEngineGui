@@ -21,6 +21,8 @@ class DocumentIndex {
         void addDoc(Document*);
 
         Document* getDoc(std::string);
+
+        void saveIndex(std::string);
 };
 
 
