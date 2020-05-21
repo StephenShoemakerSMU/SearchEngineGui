@@ -7,7 +7,8 @@
 
 
 #include <string>
-
+//Document Class
+//Stores All Relevant Info for a document
 class Document {
     private:
         std::string title;

@@ -80,7 +80,7 @@ void DocumentParser::parseBodyText(rapidjson::Value & doc) {
     }
 
     for(auto iter = totalMap.begin();iter!=totalMap.end();iter++){
-        wordIndex->addDoc(iter->first,docTitle,currentDoc,iter->second);
+        wordIndex->addEntry(iter->first, docTitle, currentDoc, iter->second);
     }
 
 

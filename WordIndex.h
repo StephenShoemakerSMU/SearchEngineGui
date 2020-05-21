@@ -12,16 +12,13 @@
 #include <unordered_map>
 #include "Document.h"
 #include "utility"
+
+//Stores Each Word and what Documents it is in
+//Does this by mapping a string to a Word Object
+//Each Word stores what it is, and a map that tracks a Document and its frequency
 class WordIndex {
     private:
 
-        struct DocumentCompare
-        {
-            bool operator() (const Document& lhs, const Document& rhs) const
-            {
-                return lhs < rhs;
-            }
-        };
         struct Word{
             std::string text;
             std::map<Document,float> frequency;
@@ -42,7 +39,8 @@ class WordIndex {
 
         WordIndex& operator=(const WordIndex&);
 
-        void addDoc(std::string, std::string, std::string, float);
+        //Add a Doc to a word and its respective frequency
+        void addEntry(std::string word, std::string doc, std::string path, float frequency);
 };
 
 

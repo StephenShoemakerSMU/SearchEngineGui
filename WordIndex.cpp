@@ -8,6 +8,8 @@ WordIndex::WordIndex() {
 
 }
 
+//Copy Constructor
+//Deletes the word map and copys the other users
 WordIndex::WordIndex(WordIndex & cpy) {
     for(auto iter = wordMap.begin(); iter!=wordMap.end(); iter++){
         delete iter->second;
@@ -20,12 +22,14 @@ WordIndex::WordIndex(WordIndex & cpy) {
     }
 }
 
+//Deletes the words to avoid memory leaks
 WordIndex::~WordIndex() {
     for(auto iter = wordMap.begin(); iter!=wordMap.end(); iter++){
         delete iter->second;
     }
 }
 
+//Same as copy constructor but returns a reference
 WordIndex& WordIndex::operator=(const WordIndex &cpy) {
     for(auto iter = wordMap.begin(); iter!=wordMap.end(); iter++){
         delete iter->second;
@@ -39,11 +43,13 @@ WordIndex& WordIndex::operator=(const WordIndex &cpy) {
     return *this;
 }
 
-void WordIndex::addDoc(std::string word, std::string title, std::string path, float frequency) {
+//If the word is in the map, add the Document to the map
+//If the word is not in the map, add the Word, then the Document
+void WordIndex::addEntry(std::string word, std::string doc, std::string path, float frequency) {
     auto wordIter = wordMap.find(word);
     Document currDoc;
     currDoc.setPath(path);
-    currDoc.setTitle(title);
+    currDoc.setTitle(doc);
     if(wordIter!=wordMap.end()){
         wordIter->second->frequency.insert(std::pair<Document,float>(currDoc,frequency));
     }else{
@@ -56,6 +62,7 @@ WordIndex::Word::Word() {
 
 }
 
+//Copys every doc and frequency into the word
 WordIndex::Word::Word(WordIndex::Word & cpy) {
     this->frequency.clear();
 
@@ -69,7 +76,7 @@ WordIndex::Word::Word(WordIndex::Word & cpy) {
 WordIndex::Word::~Word() {
 
 }
-
+//Copies the word and copies the requency
 WordIndex::Word& WordIndex::Word::operator=(const WordIndex::Word & cpy) {
     this->frequency.clear();
 
