@@ -34,4 +34,5 @@
 cmake-build-debug
 .idea
 cmake-build-release
-
+build
+.vscode
