@@ -35,5 +35,5 @@ cmake-build-debug
 .idea
 Corpus
 cmake-build-release
-Persistent/Documents/*
-Peristnent/Words/*
+Persistent/Documents/
+Peristnent/Words/
