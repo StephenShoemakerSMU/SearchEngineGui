@@ -36,3 +36,4 @@ cmake-build-debug
 Corpus
 cmake-build-release
 Persistent/Documents/*
+Peristnent/Words/*

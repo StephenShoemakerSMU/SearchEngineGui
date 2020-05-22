@@ -31,7 +31,7 @@ class SearchEngine {
 
         void saveDocumentIndex(std::string);
 
-        void saveWogrdIndex(std::string);
+        void saveWordIndex(std::string);
 
         void loadPersistentDoc(std::string);
 };
