@@ -39,7 +39,7 @@ void SearchEngine::parseDirectory(std::string directory) {
     dp = opendir(directory.c_str());
     if(dp!= nullptr)
         while((entry = readdir(dp))){
-            if(strcmp(entry->d_name,".")!=0 && strcmp(entry->d_name,"..")!=0) {
+            if(strcmp(entry->d_name,".")!=0 && strcmp(entry->d_name,"..")!=0&& strcmp(entry->d_name,".gitignore")!=0) {
                 parseDocument(directory + "/" + std::string(entry->d_name));
             }
         }
